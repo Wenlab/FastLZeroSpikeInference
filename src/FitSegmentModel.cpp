@@ -74,7 +74,7 @@ void FitSegmentModel
       rss_best = INFINITY;
       length_segment = segment_end - segment_start;
       double ss = 0; 
-      double fitted_values[length_segment];
+      double *fitted_values = new double[length_segment];
       for (int start_i = segment_start; start_i < segment_end; start_i++){
         double end_value = regression_coef(data_vec, segment_start, segment_end, start_i, gam, EPS, &ss);
         int length_sub = start_i - segment_start + 1;
@@ -85,6 +85,9 @@ void FitSegmentModel
           rss_best = rss_now; 
         }
       }
+      
+      delete [] fitted_values;
+      
     }
      // update the pointers
      segment_end = segment_start; 
